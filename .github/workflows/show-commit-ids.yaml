@@ -28,7 +28,9 @@ jobs:
     - name: Get commit ids
       id: commit_id
       run: |
-        echo "CUR_COMMIT_ID=${{ github.event.pull_request.head.sha::7 }}" >> $GITHUB_OUTPUT
+        FULL_COMMIT_ID="${{ github.event.pull_request.head.sha }}"
+        SHORT_COMMIT_ID="${FULL_COMMIT_ID::7}"
+        echo "CUR_COMMIT_ID=${SHORT_COMMIT_ID}" >> $GITHUB_OUTPUT
         echo "MAIN_COMMIT_ID=$(git rev-parse --short main)" >> $GITHUB_OUTPUT
         
     - name: Show commit ids
