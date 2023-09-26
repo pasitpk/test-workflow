@@ -1,0 +1,30 @@
+name: ShowCommitIDs
+
+on:
+  pull_request:
+    branches: [master, main]
+    types: [opened, edited, reopened]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+
+jobs:
+
+  show-commit-ids:
+
+    if: github.event.issue.pull_request || (github.event_name == 'pull_request')
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the code
+      uses: actions/checkout@v3
+
+    - name: Get Short Commit IDs
+      run: |
+        echo "Short HEAD Commit ID: ${GITHUB_SHA::7}"
+        echo "Short HEAD Commit ID: $(git rev-parse --short HEAD)"
+        echo "Short Main Branch Commit ID: $(git rev-parse --short main)"
+  
