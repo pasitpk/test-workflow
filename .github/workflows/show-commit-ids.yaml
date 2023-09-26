@@ -22,20 +22,18 @@ jobs:
     - name: Check out the code
       uses: actions/checkout@v3
 
-    - name: Get commit id of HEAD
-      id: head
-      run: echo "CUR_COMMIT_ID=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-        
     - name: Fetch latest changes
       run: git fetch origin main:main
-
-    - name: Get commit id of main
-      id: main
-      run: echo "MAIN_COMMIT_ID=$(git rev-parse --short main)" >> $GITHUB_OUTPUT
-
+      
+    - name: Get commit ids
+      id: commit_id
+      run: |
+        echo "CUR_COMMIT_ID=${{ github.event.pull_request.head.sha::7 }}" >> $GITHUB_OUTPUT
+        echo "MAIN_COMMIT_ID=$(git rev-parse --short main)" >> $GITHUB_OUTPUT
+        
     - name: Show commit ids
       run: |
-        echo ${{ steps.head.outputs.CUR_COMMIT_ID }}
-        echo ${{ steps.main.outputs.MAIN_COMMIT_ID }}
+        echo ${{ steps.commit_id.outputs.CUR_COMMIT_ID }}
+        echo ${{ steps.commit_id.outputs.MAIN_COMMIT_ID }}
     
   
