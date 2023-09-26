@@ -19,15 +19,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Fetch latest changes
-      run: git fetch origin main:main
-
     - name: Check out the code
       uses: actions/checkout@v3
 
-    - name: Get Short Commit IDs
+    - name: Get commit id of HEAD
+      id: head
+      run: echo "CUR_COMMIT_ID=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+        
+    - name: Fetch latest changes
+      run: git fetch origin main:main
+
+    - name: Get commit id of main
+      id: main
+      run: echo "MAIN_COMMIT_ID=$(git rev-parse --short main)" >> $GITHUB_OUTPUT
+
+    - name: Show commit ids
       run: |
-        echo "Short HEAD Commit ID: ${GITHUB_SHA::7}"
-        echo "Short HEAD Commit ID: $(git rev-parse --short HEAD)"
-        echo "Short Main Branch Commit ID: $(git rev-parse --short main)"
+        echo ${{ steps.head.outputs.CUR_COMMIT_ID }}
+        echo ${{ steps.main.outputs.MAIN_COMMIT_ID }}
+    
   
