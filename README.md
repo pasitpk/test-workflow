@@ -1,2 +1,2 @@
 # test-workflow
-Hello, hi
+Hello
