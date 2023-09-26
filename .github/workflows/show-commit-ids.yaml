@@ -32,12 +32,12 @@ jobs:
         SHORT_COMMIT_ID="${FULL_COMMIT_ID::7}"
         echo "CUR_COMMIT_ID=${SHORT_COMMIT_ID}" >> $GITHUB_OUTPUT
         echo "MAIN_COMMIT_ID=$(git rev-parse --short main)" >> $GITHUB_OUTPUT
-        echo "MERGE_COMMIT_ID=$(git rev-parse --short main)" >> $GITHUB_OUTPUT
+        echo "HEAD_COMMIT_ID=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
         
     - name: Show commit ids
       run: |
         echo "CUR: ${{ steps.commit_id.outputs.CUR_COMMIT_ID }}"
         echo "MAIN: ${{ steps.commit_id.outputs.MAIN_COMMIT_ID }}"
-        echo "MERGE: ${{ steps.commit_id.outputs.MERGE_COMMIT_ID }}"
+        echo "HEAD: ${{ steps.commit_id.outputs.HEAD_COMMIT_ID }}"
     
   
