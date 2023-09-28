@@ -33,6 +33,7 @@ jobs:
         echo "CUR_COMMIT_ID=${SHORT_COMMIT_ID}" >> $GITHUB_OUTPUT
         echo "MAIN_COMMIT_ID=$(git rev-parse --short main)" >> $GITHUB_OUTPUT
         echo "HEAD_COMMIT_ID=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+        echo $GITHUB_OUTPUT
         
     - name: Show commit ids
       run: |
